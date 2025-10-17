@@ -1,26 +1,22 @@
 package com.ai.smart.road.monitoring.system.application.controller;
 
-import java.util.Map;
-
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/api/dashboard")
+@Controller
 public class DashboardController {
 
 	@GetMapping("/dashboard")
-	public String dashboard(Model model, Authentication authentication) {
-		model.addAttribute("username", authentication.getName());
-		return "dashboard";
-	}
+	public String dashboard(Model model, Authentication auth) {
+		String username = auth.getName();
+		String role = auth.getAuthorities().stream().map(a -> a.getAuthority().replace("ROLE_", "")).findFirst()
+				.orElse("USER");
 
-	@GetMapping("/summary")
-	public Map<String, Object> summary() {
-		return Map.of("potholes_today", 5, "repairs_pending", 2);
-	}
+		model.addAttribute("username", username);
+		model.addAttribute("role", role);
 
+		return "dashboard"; // Thymeleaf template
+	}
 }

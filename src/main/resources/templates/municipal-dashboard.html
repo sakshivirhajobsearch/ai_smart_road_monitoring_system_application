@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Municipal Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Welcome, Municipal Officer!</h1>
+
+    <h3>Pothole Summary</h3>
+    <ul>
+        <li>Total Potholes: <span th:text="${totalPotholes}"></span></li>
+        <li>Repaired: <span th:text="${repaired}"></span></li>
+        <li>Pending: <span th:text="${pending}"></span></li>
+    </ul>
+
+    <h3>Pothole Status Chart</h3>
+    <canvas id="municipalChart" width="400" height="200"></canvas>
+    <script th:inline="javascript">
+        var ctx = document.getElementById('municipalChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Repaired', 'Pending'],
+                datasets: [{
+                    label: 'Pothole Status',
+                    data: [/*[[${repaired}]]*/, /*[[${pending}]]*/],
+                    backgroundColor: ['#36a2eb', '#ff6384']
+                }]
+            },
+            options: { responsive: true }
+        });
+    </script>
+
+    <h3>Recent Pothole Reports</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Road Name</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Depth</th>
+                <th>Length</th>
+                <th>Width</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="pothole : ${potholeList}">
+                <td th:text="${pothole.roadName}"></td>
+                <td th:text="${pothole.latitude}"></td>
+                <td th:text="${pothole.longitude}"></td>
+                <td th:text="${pothole.depth}"></td>
+                <td th:text="${pothole.length}"></td>
+                <td th:text="${pothole.width}"></td>
+                <td th:text="${pothole.status}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Repair Activities</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Pothole ID</th>
+                <th>Activity Type</th>
+                <th>Description</th>
+                <th>Performed By</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="repair : ${repairList}">
+                <td th:text="${repair.pothole.id}"></td>
+                <td th:text="${repair.activityType}"></td>
+                <td th:text="${repair.description}"></td>
+                <td th:text="${repair.performedBy}"></td>
+                <td th:text="${#dates.format(repair.performedAt, 'dd-MM-yyyy HH:mm')}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

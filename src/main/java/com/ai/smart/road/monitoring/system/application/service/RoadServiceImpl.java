@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ai.smart.road.monitoring.system.application.model.RoadData;
-import com.ai.smart.road.monitoring.system.application.repository.RoadRepository;
+import com.ai.smart.road.monitoring.system.application.repository.RoadDataRepository;
 
 @Service
 public class RoadServiceImpl implements RoadService {
 
 	@Autowired
-	private RoadRepository roadRepository;
+	private RoadDataRepository roadRepository;
 
 	@Override
 	public List<RoadData> getAllRoads() {

@@ -8,3 +8,4 @@ SHOW TABLES;
 SELECT * FROM pothole;
 SELECT * FROM road_data;
 SELECT * FROM repair_activity;
+SELECT * FROM users;

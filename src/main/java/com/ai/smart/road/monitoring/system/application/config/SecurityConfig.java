@@ -2,43 +2,52 @@ package com.ai.smart.road.monitoring.system.application.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.ai.smart.road.monitoring.system.application.service.UserDetailsServiceImpl;
 
 @Configuration
 public class SecurityConfig {
 
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()
-				.requestMatchers("/dashboard/**", "/pothole/**", "/repair/**").authenticated())
-				.formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/dashboard", true).permitAll())
-				.logout(logout -> logout.logoutSuccessUrl("/login?logout").permitAll()).csrf(csrf -> csrf.disable());
+	private final UserDetailsServiceImpl userDetailsService;
 
-		return http.build();
+	public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
+		this.userDetailsService = userDetailsService;
 	}
 
-	@Bean
-	public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-		UserDetails collector = User.withUsername("collector").password(encoder.encode("collector123"))
-				.roles("COLLECTOR").build();
-
-		UserDetails pwdDept = User.withUsername("pwd").password(encoder.encode("pwd123")).roles("PWD").build();
-
-		UserDetails municipal = User.withUsername("municipal").password(encoder.encode("municipal123"))
-				.roles("MUNICIPAL").build();
-
-		return new InMemoryUserDetailsManager(collector, pwdDept, municipal);
-	}
-
+	// Plain-text password encoder (for testing only)
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+		return NoOpPasswordEncoder.getInstance();
+	}
+
+	// Link UserDetailsService with AuthenticationProvider
+	@Bean
+	public DaoAuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+		provider.setUserDetailsService(userDetailsService);
+		provider.setPasswordEncoder(passwordEncoder());
+		return provider;
+	}
+
+	// AuthenticationManager required for form login
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+		return authConfig.getAuthenticationManager();
+	}
+
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.authorizeHttpRequests().requestMatchers("/dashboard").authenticated().anyRequest().permitAll().and()
+				.formLogin().defaultSuccessUrl("/dashboard", true).and().logout().permitAll().and().csrf().disable(); // for
+																														// testing
+
+		return http.build();
 	}
 }

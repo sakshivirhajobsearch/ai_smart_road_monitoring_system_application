@@ -22,13 +22,13 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.ai.smart.road.monitoring.system.application.model.RoadData;
-import com.ai.smart.road.monitoring.system.application.repository.RoadRepository;
+import com.ai.smart.road.monitoring.system.application.repository.RoadDataRepository;
 import com.ai.smart.road.monitoring.system.application.service.RoadServiceImpl;
 
 class RoadServiceTest {
 
 	@Mock
-	private RoadRepository roadRepository;
+	private RoadDataRepository roadRepository;
 
 	@InjectMocks
 	private RoadServiceImpl roadService;

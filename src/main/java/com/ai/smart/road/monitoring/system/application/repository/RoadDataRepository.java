@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.ai.smart.road.monitoring.system.application.model.RoadData;
 
 @Repository
-public interface RoadRepository extends JpaRepository<RoadData, Long> {
+public interface RoadDataRepository extends JpaRepository<RoadData, Long> {
 }

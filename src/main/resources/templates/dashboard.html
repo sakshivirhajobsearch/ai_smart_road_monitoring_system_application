@@ -1,2 +1,45 @@
-<p>Welcome, <span th:text="${username}"></span>!</p>
-<a th:href="@{/logout}">Logout</a>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Road Monitoring Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f6f8; }
+        h1 { color: #2c3e50; }
+        .card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome, <span th:text="${username}"></span>!</h1>
+    <h2>Your Role: <span th:text="${role}"></span></h2>
+
+    <div th:switch="${role}">
+        <div th:case="'ADMIN'" class="card">
+            <h3>Admin Dashboard</h3>
+            <p>Manage users, view all reports, and control the system.</p>
+        </div>
+        <div th:case="'COLLECTOR'" class="card">
+            <h3>Collector Dashboard</h3>
+            <p>View collected road data and oversee reports.</p>
+        </div>
+        <div th:case="'PWD'" class="card">
+            <h3>PWD Dashboard</h3>
+            <p>Monitor road repairs, potholes, and maintenance activities.</p>
+        </div>
+        <div th:case="'MUNICIPAL'" class="card">
+            <h3>Municipal Dashboard</h3>
+            <p>Check repair status and road monitoring updates.</p>
+        </div>
+        <div th:case="*">
+            <p>No dashboard available for your role.</p>
+        </div>
+    </div>
+</body>
+</html>
