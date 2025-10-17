@@ -26,6 +26,19 @@
 		<aws.sdk.version>2.27.23</aws.sdk.version>
 	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<!-- AWS SDK v2 BOM to keep versions consistent -->
+			<dependency>
+				<groupId>software.amazon.awssdk</groupId>
+				<artifactId>bom</artifactId>
+				<version>${aws.sdk.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 
 		<!-- Spring Boot Core -->
@@ -56,12 +69,11 @@
 			<artifactId>spring-security-crypto</artifactId>
 		</dependency>
 
-		<!-- MySQL Database -->
+		<!-- MySQL -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.33</version>
-			<scope>runtime</scope>
+			<version>8.0.12</version>
 		</dependency>
 
 		<!-- AWS SDK v2 for S3 -->
