@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -14,32 +15,42 @@ import software.amazon.awssdk.services.s3.S3Client;
 @Configuration
 public class AwsConfig {
 
-	// AWS credentials and region
-	@Value("${aws.accessKeyId}")
+	@Value("${aws.accessKeyId:}")
 	private String accessKey;
 
-	@Value("${aws.secretAccessKey}")
+	@Value("${aws.secretAccessKey:}")
 	private String secretKey;
 
-	@Value("${aws.region}")
+	@Value("${aws.region:us-east-1}")
 	private String region;
 
-	// Optional: custom S3 endpoint (for localstack or custom endpoint)
 	@Value("${aws.s3.endpoint:}")
 	private String s3Endpoint;
 
 	@Bean
 	public S3Client s3Client() {
-		// Create builder for S3Client
-		var builder = S3Client.builder().region(Region.of(region)).credentialsProvider(
-				StaticCredentialsProvider.create(AwsBasicCredentials.create(accessKey, secretKey)));
+		try {
+			var builder = S3Client.builder().region(Region.of(region));
 
-		// Optional endpoint override (e.g., localstack)
-		if (s3Endpoint != null && !s3Endpoint.isEmpty()) {
-			builder.endpointOverride(URI.create(s3Endpoint));
+			// Use credentials based on what’s available
+			if (accessKey != null && !accessKey.isBlank() && secretKey != null && !secretKey.isBlank()) {
+				builder.credentialsProvider(
+						StaticCredentialsProvider.create(AwsBasicCredentials.create(accessKey, secretKey)));
+			} else {
+				// fallback to environment or default AWS credentials
+				builder.credentialsProvider(EnvironmentVariableCredentialsProvider.create());
+			}
+
+			// Optional custom endpoint (e.g., LocalStack)
+			if (s3Endpoint != null && !s3Endpoint.isBlank()) {
+				builder.endpointOverride(URI.create(s3Endpoint));
+			}
+
+			return builder.build();
+		} catch (Exception e) {
+			// Log and continue app startup without throwing
+			System.err.println("⚠️ AWS S3 Client not initialized: " + e.getMessage());
+			return null; // Application will still start for local testing
 		}
-
-		// Build and return the S3Client
-		return builder.build();
 	}
 }
