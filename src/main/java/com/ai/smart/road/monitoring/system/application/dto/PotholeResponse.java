@@ -2,6 +2,9 @@ package com.ai.smart.road.monitoring.system.application.dto;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PotholeResponse {
 
 	private Long id;

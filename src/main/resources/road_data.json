@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "length": 1000.5,
+    "width": 8.0,
+    "height": 0.5,
+    "latitude": 28.6139,
+    "longitude": 77.2090,
+    "recordedAt": "2025-10-16T10:00:00"
+  },
+  {
+    "id": 2,
+    "length": 1500.0,
+    "width": 10.0,
+    "height": 0.6,
+    "latitude": 28.7041,
+    "longitude": 77.1025,
+    "recordedAt": "2025-10-16T11:00:00"
+  }
+]
