@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Smart Road Monitoring - Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body {
+            background: linear-gradient(to right, #003366, #0066cc);
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .login-box {
+            background: white;
+            color: black;
+            border-radius: 10px;
+            width: 350px;
+            margin: auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #004c99;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Login to Smart Road Monitoring</h2>
+        <form th:action="@{/login}" method="post">
+            <div><input type="text" name="username" placeholder="Username" required></div>
+            <div><input type="password" name="password" placeholder="Password" required></div>
+            <div><button type="submit">Login</button></div>
+        </form>
+        <p th:if="${param.error}" style="color:red;">Invalid username or password</p>
+        <p th:if="${param.logout}" style="color:green;">You have been logged out successfully</p>
+    </div>
+</body>
+</html>
