@@ -14,16 +14,17 @@ import com.ai.smart.road.monitoring.system.application.dto.RoadDataDTO;
 
 public class ChartGenerator {
 
+	// Pothole depth chart
 	public JPanel generatePotholeDepthChart(List<PotholeResponse> potholes, String title) {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		for (PotholeResponse p : potholes) {
 			dataset.addValue(p.getDepth(), "Depth", "ID: " + p.getId());
 		}
-
-		JFreeChart chart = ChartFactory.createBarChart(title, "Pothole ID", "Depth (cm)", dataset);
+		JFreeChart chart = ChartFactory.createBarChart(title, "Pothole ID", "Depth (m)", dataset);
 		return new ChartPanel(chart);
 	}
 
+	// Road dimension chart (Length, Width, SurfaceLevel as Height)
 	public JPanel generateRoadDimensionsChart(List<RoadDataDTO> roads, String title) {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		for (RoadDataDTO r : roads) {
@@ -31,7 +32,6 @@ public class ChartGenerator {
 			dataset.addValue(r.getWidth(), "Width", r.getId());
 			dataset.addValue(r.getHeight(), "Height", r.getId());
 		}
-
 		JFreeChart chart = ChartFactory.createBarChart(title, "Road Points", "Dimensions (m)", dataset);
 		return new ChartPanel(chart);
 	}

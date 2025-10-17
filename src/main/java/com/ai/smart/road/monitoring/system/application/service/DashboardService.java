@@ -5,48 +5,41 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.ai.smart.road.monitoring.system.application.dto.PotholeResponse;
 import com.ai.smart.road.monitoring.system.application.dto.RoadDataDTO;
+import com.ai.smart.road.monitoring.system.application.model.Pothole;
 import com.ai.smart.road.monitoring.system.application.model.RoadData;
 
-/**
- * DashboardService ---------------- This service converts raw RoadData entities
- * into RoadDataDTOs for dashboards and analytics.
- */
 @Service
 public class DashboardService {
 
 	/**
-	 * Convert list of RoadData entities into list of RoadDataDTOs.
-	 *
-	 * @param roadDataList list of raw RoadData entities
-	 * @return list of RoadDataDTOs
+	 * Convert list of RoadData entities into RoadDataDTOs
 	 */
-	public List<RoadDataDTO> getRoadDataDTOs(List<RoadData> roadDataList) {
-		if (roadDataList == null || roadDataList.isEmpty()) {
-			return List.of();
-		}
-
-		return roadDataList.stream().map(r -> {
-			RoadDataDTO dto = new RoadDataDTO();
-			// Generate ID from latitude and longitude
-			dto.setId(generateCompositeId(r.getLatitude(), r.getLongitude()));
-			dto.setLength(r.getSurfaceLevel()); // map surfaceLevel to length
-			dto.setWidth(r.getSlope()); // map slope to width
-			dto.setHeight(0); // height not available in entity
-			dto.setRecordedAt(null); // recordedAt not available in entity
-			dto.setLevelStatus(r.getStatus()); // map status
-			return dto;
-		}).collect(Collectors.toList());
+	public List<RoadDataDTO> toRoadDataDTOs(List<RoadData> roads) {
+		return roads.stream()
+				.map(r -> new RoadDataDTO(generateCompositeId(r.getLatitude(), r.getLongitude()), r.getSurfaceLevel(), // use
+																														// surfaceLevel
+																														// as
+																														// "length"
+						r.getSlope(), // use slope as "width"
+						r.getSurfaceLevel(), // use surfaceLevel as "height"
+						null, // recordedAt not tracked
+						r.getLatitude(), r.getLongitude()))
+				.collect(Collectors.toList());
 	}
 
 	/**
-	 * Generate a composite ID based on latitude and longitude.
-	 *
-	 * @param lat latitude
-	 * @param lon longitude
-	 * @return composite ID string
+	 * Convert list of Pothole entities into PotholeResponse DTOs
 	 */
-	private String generateCompositeId(double lat, double lon) {
-		return String.format("%.6f_%.6f", lat, lon);
+	public List<PotholeResponse> toPotholeResponses(List<Pothole> potholes) {
+		return potholes
+				.stream().map(p -> new PotholeResponse(p.getId(), p.getLength(), p.getWidth(), p.getDepth(),
+						p.getGpsLocation(), p.getDetectedAt(), p.getLatitude(), p.getLongitude()))
+				.collect(Collectors.toList());
+	}
+
+	private String generateCompositeId(double latitude, double longitude) {
+		return String.format("%.6f_%.6f", latitude, longitude);
 	}
 }

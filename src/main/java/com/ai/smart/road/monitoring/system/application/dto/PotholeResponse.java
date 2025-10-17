@@ -8,55 +8,29 @@ public class PotholeResponse {
 	private double length;
 	private double width;
 	private double depth;
-	private double x;
-	private double y;
 	private String gpsLocation;
 	private LocalDateTime detectedAt;
+	private double latitude;
+	private double longitude;
 
-	// Default constructor
+	// No-arg constructor
 	public PotholeResponse() {
 	}
 
-	// Constructor with gpsLocation parsing to x and y
+	// Constructor for DashboardService mapping
 	public PotholeResponse(Long id, double length, double width, double depth, String gpsLocation,
-			LocalDateTime detectedAt) {
+			LocalDateTime detectedAt, double latitude, double longitude) {
 		this.id = id;
 		this.length = length;
 		this.width = width;
 		this.depth = depth;
 		this.gpsLocation = gpsLocation;
 		this.detectedAt = detectedAt;
-
-		// Derive x and y from gpsLocation if present
-		if (gpsLocation != null && gpsLocation.contains(",")) {
-			try {
-				String[] parts = gpsLocation.split(",");
-				this.x = Double.parseDouble(parts[0].trim());
-				this.y = Double.parseDouble(parts[1].trim());
-			} catch (NumberFormatException e) {
-				this.x = 0;
-				this.y = 0;
-			}
-		} else {
-			this.x = 0;
-			this.y = 0;
-		}
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
-	// Full constructor with explicit x and y
-	public PotholeResponse(Long id, double length, double width, double depth, double x, double y, String gpsLocation,
-			LocalDateTime detectedAt) {
-		this.id = id;
-		this.length = length;
-		this.width = width;
-		this.depth = depth;
-		this.x = x;
-		this.y = y;
-		this.gpsLocation = gpsLocation;
-		this.detectedAt = detectedAt;
-	}
-
-	// Getters and Setters
+	// Getters and setters
 	public Long getId() {
 		return id;
 	}
@@ -89,22 +63,6 @@ public class PotholeResponse {
 		this.depth = depth;
 	}
 
-	public double getX() {
-		return x;
-	}
-
-	public void setX(double x) {
-		this.x = x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public void setY(double y) {
-		this.y = y;
-	}
-
 	public String getGpsLocation() {
 		return gpsLocation;
 	}
@@ -121,4 +79,19 @@ public class PotholeResponse {
 		this.detectedAt = detectedAt;
 	}
 
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
 }

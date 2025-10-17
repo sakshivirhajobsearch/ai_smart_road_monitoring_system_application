@@ -4,27 +4,31 @@ import java.time.LocalDateTime;
 
 public class RoadDataDTO {
 
-	private String id;
+	private String id; // composite of latitude_longitude
 	private double length;
 	private double width;
 	private double height;
 	private LocalDateTime recordedAt;
-	private String levelStatus; // optional
+	private double latitude;
+	private double longitude;
 
 	// No-arg constructor
 	public RoadDataDTO() {
 	}
 
-	// All-args constructor
-	public RoadDataDTO(String id, double length, double width, double height, LocalDateTime recordedAt) {
+	// Constructor used in DashboardService
+	public RoadDataDTO(String id, double length, double width, double height, LocalDateTime recordedAt, double latitude,
+			double longitude) {
 		this.id = id;
 		this.length = length;
 		this.width = width;
 		this.height = height;
 		this.recordedAt = recordedAt;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
-	// Getters & setters
+	// Getters and setters
 	public String getId() {
 		return id;
 	}
@@ -65,11 +69,19 @@ public class RoadDataDTO {
 		this.recordedAt = recordedAt;
 	}
 
-	public String getLevelStatus() {
-		return levelStatus;
+	public double getLatitude() {
+		return latitude;
 	}
 
-	public void setLevelStatus(String levelStatus) {
-		this.levelStatus = levelStatus;
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
 }

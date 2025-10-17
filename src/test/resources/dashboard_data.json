@@ -1,0 +1,18 @@
+[
+  {
+    "id": "28.613900_77.209000",
+    "length": 500.0,
+    "width": 12.0,
+    "height": 0.5,
+    "recordedAt": "2025-10-17T09:00:00",
+    "levelStatus": "LEVEL"
+  },
+  {
+    "id": "28.614000_77.210000",
+    "length": 300.0,
+    "width": 10.0,
+    "height": 0.7,
+    "recordedAt": "2025-10-17T09:30:00",
+    "levelStatus": "UNEQUAL"
+  }
+]

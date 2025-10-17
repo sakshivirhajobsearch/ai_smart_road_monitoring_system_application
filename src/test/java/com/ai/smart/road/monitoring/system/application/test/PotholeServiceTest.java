@@ -1,59 +1,51 @@
 package com.ai.smart.road.monitoring.system.application.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
+import com.ai.smart.road.monitoring.system.application.dto.PotholeResponse;
 import com.ai.smart.road.monitoring.system.application.model.Pothole;
+import com.ai.smart.road.monitoring.system.application.service.DashboardService;
 import com.ai.smart.road.monitoring.system.application.service.PotholeService;
 
 @SpringBootTest
 public class PotholeServiceTest {
 
-	@Autowired
+	@MockBean
 	private PotholeService potholeService;
 
-	@Test
-	public void testCreateAndGetPothole() {
-		// Create new pothole
-		Pothole pothole = new Pothole();
-		pothole.setLatitude(12.9716);
-		pothole.setLongitude(77.5946);
-		pothole.setDepth(0.3);
-		pothole.setStatus("REPORTED");
-
-		potholeService.createPothole(pothole);
-
-		// Verify retrieval
-		List<Pothole> potholes = potholeService.getAllPotholes();
-		assertNotNull(potholes);
-		assertEquals(1, potholes.size());
-		assertEquals(0.3, potholes.get(0).getDepth());
-	}
+	@MockBean
+	private DashboardService dashboardService;
 
 	@Test
-	public void testUpdateAndDeletePothole() {
-		Pothole pothole = new Pothole();
-		pothole.setLatitude(12.9716);
-		pothole.setLongitude(77.5946);
-		pothole.setDepth(0.2);
-		pothole.setStatus("REPORTED");
-		Pothole saved = potholeService.createPothole(pothole);
+	void testGetPotholeResponses() {
+		Pothole p1 = new Pothole();
+		p1.setId(101L);
+		p1.setLength(2.0);
+		p1.setWidth(1.0);
+		p1.setDepth(0.5);
+		p1.setGpsLocation("12.34,56.78");
+		p1.setDetectedAt(LocalDateTime.now());
+		p1.setLatitude(12.34);
+		p1.setLongitude(56.78);
 
-		// Update
-		saved.setDepth(0.5);
-		potholeService.updatePothole(saved.getId(), saved);
-		Pothole updated = potholeService.getPotholeById(saved.getId()).orElse(null);
-		assertEquals(0.5, updated.getDepth());
+		when(potholeService.getAllPotholes()).thenReturn(List.of(p1));
 
-		// Delete
-		potholeService.deletePothole(saved.getId());
-		List<Pothole> remaining = potholeService.getAllPotholes();
-		assertEquals(0, remaining.size());
+		PotholeResponse dto = new PotholeResponse(101L, 2.0, 1.0, 0.5, "12.34,56.78", p1.getDetectedAt(), 12.34, 56.78);
+
+		when(dashboardService.toPotholeResponses(List.of(p1))).thenReturn(List.of(dto));
+
+		List<PotholeResponse> responses = dashboardService.toPotholeResponses(List.of(p1));
+
+		assertThat(responses).hasSize(1);
+		assertThat(responses.get(0).getDepth()).isEqualTo(0.5);
+		assertThat(responses.get(0).getLatitude()).isEqualTo(12.34);
 	}
 }

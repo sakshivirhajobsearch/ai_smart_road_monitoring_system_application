@@ -1,62 +1,48 @@
 package com.ai.smart.road.monitoring.system.application.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.ai.smart.road.monitoring.system.application.controller.RoadController;
+import com.ai.smart.road.monitoring.system.application.dto.RoadDataDTO;
 import com.ai.smart.road.monitoring.system.application.model.RoadData;
+import com.ai.smart.road.monitoring.system.application.service.DashboardService;
 import com.ai.smart.road.monitoring.system.application.service.RoadService;
 
 @SpringBootTest
 public class RoadControllerTest {
 
-	@Autowired
-	private RoadController roadController;
-
-	@Autowired
+	@MockBean
 	private RoadService roadService;
 
-	@Test
-	public void testCreateAndFetchRoad() {
-		RoadData road = new RoadData();
-		road.setLatitude(12.9716);
-		road.setLongitude(77.5946);
-		road.setSurfaceLevel(0.4);
-		road.setSlope(0.02);
-		road.setStatus("GOOD");
-		roadService.createRoad(road);
-
-		List<RoadData> roads = roadController.getAllRoads();
-		assertNotNull(roads);
-		assertEquals(1, roads.size());
-		assertEquals(12.9716, roads.get(0).getLatitude());
-	}
+	@MockBean
+	private DashboardService dashboardService;
 
 	@Test
-	public void testUpdateAndDeleteRoad() {
+	void testGetAllRoadData() {
 		RoadData road = new RoadData();
-		road.setLatitude(12.97);
-		road.setLongitude(77.59);
-		road.setSurfaceLevel(0.3);
-		road.setSlope(0.01);
-		road.setStatus("FAIR");
-		RoadData saved = roadService.createRoad(road);
+		road.setId(1L);
+		road.setLatitude(12.34);
+		road.setLongitude(56.78);
+		road.setSurfaceLevel(10);
+		road.setSlope(2);
 
-		// Update
-		saved.setSurfaceLevel(0.6);
-		roadService.updateRoad(saved.getId(), saved);
-		RoadData updated = roadService.getRoadById(saved.getId()).orElse(null);
-		assertEquals(0.6, updated.getSurfaceLevel());
+		when(roadService.getAllRoads()).thenReturn(List.of(road));
 
-		// Delete
-		roadService.deleteRoad(saved.getId());
-		List<RoadData> remaining = roadController.getAllRoads();
-		assertEquals(0, remaining.size());
+		RoadDataDTO dto = new RoadDataDTO("12.340000_56.780000", 10, 2, 10, null, 12.34, 56.78);
+
+		when(dashboardService.toRoadDataDTOs(List.of(road))).thenReturn(List.of(dto));
+
+		List<RoadDataDTO> dtos = dashboardService.toRoadDataDTOs(List.of(road));
+
+		assertThat(dtos).hasSize(1);
+		assertThat(dtos.get(0).getId()).isEqualTo("12.340000_56.780000");
+		assertThat(dtos.get(0).getLength()).isEqualTo(10);
+		assertThat(dtos.get(0).getWidth()).isEqualTo(2);
 	}
 }

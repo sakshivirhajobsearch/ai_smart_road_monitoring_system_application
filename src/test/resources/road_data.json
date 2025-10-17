@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "roadName": "Main Street",
+    "latitude": 28.6139,
+    "longitude": 77.2090,
+    "surfaceLevel": 0.5,
+    "slope": 1.2,
+    "status": "GOOD",
+    "sensorFile": "sensor_001.csv"
+  },
+  {
+    "id": 2,
+    "roadName": "Second Avenue",
+    "latitude": 28.6140,
+    "longitude": 77.2100,
+    "surfaceLevel": 0.7,
+    "slope": 0.8,
+    "status": "FAIR",
+    "sensorFile": "sensor_002.csv"
+  }
+]
