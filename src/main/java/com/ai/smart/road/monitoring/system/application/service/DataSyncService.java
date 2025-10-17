@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ai.smart.road.monitoring.system.application.entity.Pothole;
+import com.ai.smart.road.monitoring.system.application.model.Pothole;
 import com.ai.smart.road.monitoring.system.application.repository.PotholeRepository;
 
 @Service

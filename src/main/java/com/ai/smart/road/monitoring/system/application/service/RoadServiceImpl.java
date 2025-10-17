@@ -6,43 +6,49 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ai.smart.road.monitoring.system.application.entity.RoadData;
-import com.ai.smart.road.monitoring.system.application.repository.RoadDataRepository;
+import com.ai.smart.road.monitoring.system.application.model.RoadData;
+import com.ai.smart.road.monitoring.system.application.repository.RoadRepository;
 
 @Service
 public class RoadServiceImpl implements RoadService {
 
 	@Autowired
-	private RoadDataRepository roadDataRepository;
+	private RoadRepository roadRepository;
 
 	@Override
 	public List<RoadData> getAllRoads() {
-		return roadDataRepository.findAll();
+		return roadRepository.findAll();
 	}
 
 	@Override
 	public Optional<RoadData> getRoadById(Long id) {
-		return roadDataRepository.findById(id);
+		return roadRepository.findById(id);
 	}
 
 	@Override
 	public RoadData createRoad(RoadData road) {
-		return roadDataRepository.save(road);
+		return roadRepository.save(road);
 	}
 
 	@Override
 	public RoadData updateRoad(Long id, RoadData roadDetails) {
-		return roadDataRepository.findById(id).map(road -> {
-			road.setLength(roadDetails.getLength());
-			road.setWidth(roadDetails.getWidth());
-			road.setHeight(roadDetails.getHeight());
-			road.setLevelStatus(roadDetails.getLevelStatus());
-			return roadDataRepository.save(road);
-		}).orElseThrow(() -> new RuntimeException("Road not found with id " + id));
+		return roadRepository.findById(id).map(road -> {
+			road.setRoadName(roadDetails.getRoadName());
+			road.setLatitude(roadDetails.getLatitude());
+			road.setLongitude(roadDetails.getLongitude());
+			road.setSurfaceLevel(roadDetails.getSurfaceLevel());
+			road.setSlope(roadDetails.getSlope());
+			road.setStatus(roadDetails.getStatus());
+			road.setSensorFile(roadDetails.getSensorFile());
+			return roadRepository.save(road);
+		}).orElseThrow(() -> new RuntimeException("Road data not found with id " + id));
 	}
 
 	@Override
 	public void deleteRoad(Long id) {
-		roadDataRepository.deleteById(id);
+		if (!roadRepository.existsById(id)) {
+			throw new RuntimeException("Road data not found with id " + id);
+		}
+		roadRepository.deleteById(id);
 	}
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ai.smart.road.monitoring.system.application.entity.Pothole;
+import com.ai.smart.road.monitoring.system.application.model.Pothole;
 import com.ai.smart.road.monitoring.system.application.service.PotholeService;
 
 @RestController

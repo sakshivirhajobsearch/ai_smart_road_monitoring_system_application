@@ -1,4 +1,4 @@
-package com.ai.smart.road.monitoring.system.application.entity;
+package com.ai.smart.road.monitoring.system.application.model;
 
 import java.time.LocalDateTime;
 
@@ -27,6 +27,7 @@ public class Pothole {
 	private LocalDateTime detectedDate; // corresponds to setDetectedDate / getDetectedDate
 	private LocalDateTime detectedAt; // corresponds to setDetectedAt / getDetectedAt
 	private String imagePath; // corresponds to setImagePath / getImagePath
+	private String status;
 
 	// Optional alias for gpsLocation if needed
 	private String gpsPin; // corresponds to getGpsPin / setGpsPin
@@ -135,4 +136,13 @@ public class Pothole {
 	public void setGpsPin(String gpsPin) {
 		this.gpsPin = gpsPin;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 }

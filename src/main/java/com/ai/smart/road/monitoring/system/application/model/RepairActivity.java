@@ -1,4 +1,4 @@
-package com.ai.smart.road.monitoring.system.application.entity;
+package com.ai.smart.road.monitoring.system.application.model;
 
 import java.time.LocalDate;
 

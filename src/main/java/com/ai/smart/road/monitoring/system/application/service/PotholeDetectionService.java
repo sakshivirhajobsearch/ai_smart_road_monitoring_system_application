@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.ai.smart.road.monitoring.system.application.config.PythonIntegrationConfig;
-import com.ai.smart.road.monitoring.system.application.entity.Pothole;
+import com.ai.smart.road.monitoring.system.application.model.Pothole;
 import com.ai.smart.road.monitoring.system.application.repository.PotholeRepository;
 
 @Service
