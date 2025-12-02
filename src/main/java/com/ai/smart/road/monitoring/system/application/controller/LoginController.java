@@ -8,6 +8,11 @@ public class LoginController {
 
 	@GetMapping("/login")
 	public String loginPage() {
-		return "login";
+		return "login"; // templates/login.html
+	}
+
+	@GetMapping("/")
+	public String redirectToLogin() {
+		return "redirect:/login";
 	}
 }
