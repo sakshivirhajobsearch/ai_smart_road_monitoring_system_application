@@ -1,0 +1,90 @@
+# ==============================
+# Java / Maven
+# ==============================
+/target/
+*.class
+*.jar
+*.war
+*.iml
+*.log
+*.out
+
+# Maven specific
+.mvn/
+.settings/
+.classpath
+.factorypath
+.project
+.pydevproject
+
+# ==============================
+# Python
+# ==============================
+venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+pip-log.txt
+
+# Python environments
+.env/
+.venv/
+env/
+python_env/
+
+# ==============================
+# AI / ML Models
+# ==============================
+*.h5
+*.pt
+*.pth
+*.pkl
+*.joblib
+*.sav
+*.npy
+*.npz
+
+# Auto-generated JSON
+potholes_data.json
+road_data.json
+dashboard_data.json
+
+# ==============================
+# Temp, Uploads, Generated Files
+# ==============================
+uploads/
+tmp/
+cache/
+*.tmp
+*.bak
+*.orig
+*.csv
+*.xlsx
+*.xls
+
+# ==============================
+# Logs
+# ==============================
+*.log
+logs/
+debug.log
+nohup.out
+
+# ==============================
+# OS / IDE
+# ==============================
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+
+# ==============================
+# Secrets
+# ==============================
+.env
+.env.*.local
+secrets.json
+credentials.json

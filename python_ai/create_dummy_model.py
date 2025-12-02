@@ -1,16 +1,20 @@
 import joblib
-import numpy as np
-from sklearn.ensemble import RandomForestClassifier
 import os
+from sklearn.ensemble import RandomForestClassifier
 
-os.makedirs("models", exist_ok=True)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_DIR = os.path.join(BASE_DIR, "models")
+os.makedirs(MODEL_DIR, exist_ok=True)
 
-# Dummy training data: [avg_area, max_area, depth_estimate]
-X = np.random.rand(100, 3) * [5000, 10000, 5]
-y = np.random.randint(0, 2, 100)
+model_path_pkl = os.path.join(MODEL_DIR, "pothole_model.pkl")
+model_path_joblib = os.path.join(MODEL_DIR, "pothole_model.joblib")
 
-model = RandomForestClassifier(n_estimators=10, random_state=42)
-model.fit(X, y)
+# Dummy model
+clf = RandomForestClassifier()
+# Fit on dummy data
+clf.fit([[0,1],[1,0],[1,1],[0,0]], [0,1,1,0])
 
-joblib.dump(model, "models/pothole_model.joblib")
-print("Dummy pothole model saved at models/pothole_model.joblib")
+joblib.dump(clf, model_path_pkl)
+joblib.dump(clf, model_path_joblib)
+
+print(f"Dummy models saved:\n{model_path_pkl}\n{model_path_joblib}")

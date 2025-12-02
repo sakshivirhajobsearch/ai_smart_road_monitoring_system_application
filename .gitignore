@@ -1,7 +1,18 @@
-# ==============================
-# Java / Maven
-# ==============================
+##############################################
+# JAVA / MAVEN (Spring Boot)
+##############################################
 /target/
+target/
+*/target/
+
+# Ignore Java build bin *inside target ONLY*
+target/bin/
+*/target/bin/
+
+# DO NOT IGNORE ROOT /bin (your scripts)
+!/bin/
+!/bin/**
+
 *.class
 *.jar
 *.war
@@ -9,82 +20,91 @@
 *.log
 *.out
 
-# Maven specific
-.mvn/
-.settings/
-.classpath
-.factorypath
-.project
-.pydevproject
-
-# ==============================
-# Python
-# ==============================
-venv/
+##############################################
+# PYTHON (AI Modules)
+##############################################
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 *.egg
 *.egg-info/
-pip-log.txt
 
 # Python environments
-.env/
-.venv/
 env/
+venv/
+.venv/
 python_env/
+*.spec
 
-# ==============================
-# AI / ML Models
-# ==============================
+# Auto-generated AI models
+*.pkl
+*.joblib
 *.h5
 *.pt
 *.pth
-*.pkl
-*.joblib
 *.sav
 *.npy
 *.npz
 
-# Auto-generated JSON
+##############################################
+# AUTO-GENERATED JSON
+##############################################
 potholes_data.json
 road_data.json
 dashboard_data.json
 
-# ==============================
-# Temp, Uploads, Generated Files
-# ==============================
-uploads/
-tmp/
-cache/
-*.tmp
-*.bak
-*.orig
-*.csv
-*.xlsx
-*.xls
+##############################################
+# DATA & REPORTS
+##############################################
+/data/captured_images/
+data/*.csv
+data/*.xlsx
+/data/reports/*
+sensor_log.csv
+sensor_log.xlsx
 
-# ==============================
-# Logs
-# ==============================
-*.log
-logs/
-debug.log
-nohup.out
-
-# ==============================
-# OS / IDE
-# ==============================
+##############################################
+# OS / IDE FILES
+##############################################
 .vscode/
 .idea/
 Thumbs.db
 .DS_Store
 
-# ==============================
-# Secrets
-# ==============================
+##############################################
+# LOGS & TEMP
+##############################################
+*.log
+logs/
+debug.log
+nohup.out
+tmp/
+temp/
+cache/
+*.tmp
+*.bak
+*.orig
+
+##############################################
+# SCRIPTS / BATCH EXCLUSIONS
+##############################################
+# Allow script files everywhere
+!*.bat
+!*.ps1
+!*.sh
+
+##############################################
+# SECRETS / CONFIG
+##############################################
 .env
 .env.*.local
 secrets.json
 credentials.json
+aws_credentials.json
+
+##############################################
+# NODE / FRONTEND (future-proof)
+##############################################
+node_modules/
+dist/
