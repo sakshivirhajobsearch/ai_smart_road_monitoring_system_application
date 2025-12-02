@@ -1,9 +1,0 @@
-# create_dummy_scaler.py
-import joblib
-from sklearn.preprocessing import StandardScaler
-import numpy as np
-
-scaler = StandardScaler()
-scaler.fit(np.random.rand(100, 5))
-joblib.dump(scaler, "scaler.pkl")
-print("✅ Dummy scaler.pkl created.")
