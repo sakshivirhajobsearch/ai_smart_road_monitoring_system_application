@@ -1,59 +1,87 @@
 @echo off
-title AI Smart Road Monitoring System - Auto Clean
+setlocal enabledelayedexpansion
+
+echo.
 echo ============================================================
-echo            CLEANING PROJECT (Windows Clean Script)
+echo          CLEANING PROJECT (Windows Clean Script)
 echo ============================================================
 echo.
 
-REM -----------------------------
-REM Delete common IDE junk
-REM -----------------------------
+REM --------------------------
+REM 1. Remove IDE metadata
+REM --------------------------
 echo [1] Removing IDE metadata...
-del /f /q .classpath 2>nul
-del /f /q .factorypath 2>nul
-del /f /q .project 2>nul
-del /f /q .pydevproject 2>nul
+for %%d in (".idea" ".vscode" ".classpath" ".project" ".settings") do (
+    if exist %%d (
+        echo    - deleting %%d
+        rmdir /s /q %%d 2>nul
+    )
+)
 
-rmdir /s /q .settings 2>nul
-rmdir /s /q .vscode 2>nul
-
-REM -----------------------------
-REM Delete build artifacts
-REM -----------------------------
+REM --------------------------
+REM 2. Clean Maven build folders
+REM --------------------------
 echo [2] Removing build folders...
-rmdir /s /q target 2>nul
-rmdir /s /q bin 2>nul
-rmdir /s /q build 2>nul
-rmdir /s /q dist 2>nul
+if exist target (
+    echo    - deleting /target
+    rmdir /s /q target
+)
 
-REM -----------------------------
-REM Python cache cleanup
-REM -----------------------------
+REM --------------------------
+REM 3. Remove Python cache
+REM --------------------------
 echo [3] Removing Python __pycache__...
-for /r %%d in (__pycache__) do rmdir /s /q "%%d" 2>nul
+for /r python_ai %%d in (__pycache__) do (
+    echo    - deleting %%d
+    rmdir /s /q "%%d"
+)
 
-REM -----------------------------
-REM Remove logs
-REM -----------------------------
+REM --------------------------
+REM 4. Remove logs
+REM --------------------------
 echo [4] Removing logs...
-del /f /q *.log 2>nul
-rmdir /s /q python_ai\logs 2>nul
+for /r %%f in (*.log) do (
+    echo    - deleting %%f
+    del /q "%%f"
+)
 
-REM -----------------------------
-REM Auto-generated JSON cleaned but NOT main JSON
-REM -----------------------------
+REM --------------------------
+REM 5. Remove auto-generated JSON (NOT real JSON)
+REM --------------------------
 echo [5] Removing auto-generated JSON data...
-del /f /q dashboard_data.json 2>nul
 
-REM -----------------------------
-REM Show final directory structure
-REM -----------------------------
+if exist potholes_data.json del /q potholes_data.json
+if exist road_data.json del /q road_data.json
+
+REM python_ai\data
+if exist python_ai\data\dummy_pothole_data.json del /q python_ai\data\dummy_pothole_data.json
+if exist python_ai\data\dummy_road_data.json del /q python_ai\data\dummy_road_data.json
+
+REM --------------------------
+REM 6. Clean Python uploads folder (ONLY auto-generated files)
+REM --------------------------
+echo [6] Cleaning Python uploads (preserving model files)...
+
+REM delete all uploaded images
+for /r python_ai\uploads\images %%f in (*.jpg *.jpeg *.png *.csv) do (
+    echo    - deleting uploaded %%~nxf
+    del /q "%%f"
+)
+
+REM delete sensor uploaded files
+for /r python_ai\uploads\sensor %%f in (*.csv *.xlsx) do (
+    echo    - deleting uploaded %%~nxf
+    del /q "%%f"
+)
+
 echo.
 echo ============================================================
-echo               FINAL DIRECTORY STRUCTURE
+echo                FINAL DIRECTORY STRUCTURE
 echo ============================================================
-tree /f
-echo.
-echo Cleanup complete.
+tree /f /a
+echo ============================================================
+echo   CLEAN COMPLETE ✔
+echo ============================================================
+
+endlocal
 pause
-exit

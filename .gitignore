@@ -1,110 +1,132 @@
-##############################################
-# JAVA / MAVEN (Spring Boot)
-##############################################
+# ==============================
+# Java / Maven
+# ==============================
 /target/
-target/
-*/target/
-
-# Ignore Java build bin *inside target ONLY*
-target/bin/
-*/target/bin/
-
-# DO NOT IGNORE ROOT /bin (your scripts)
-!/bin/
-!/bin/**
-
 *.class
 *.jar
 *.war
 *.iml
-*.log
 *.out
+*.db
 
-##############################################
-# PYTHON (AI Modules)
-##############################################
+# IntelliJ
+.idea/
+*.ipr
+*.iws
+*.classpath
+
+# Maven Wrapper
+.mvn/
+.settings/
+
+
+# ==============================
+# Python
+# ==============================
+venv/
+.env/
+.env.bak/
+.venv/
+python_env/
+myenv/
+
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 *.egg
 *.egg-info/
+pip-log.txt
+*.sqlite3
 
-# Python environments
-env/
-venv/
-.venv/
-python_env/
-*.spec
 
-# Auto-generated AI models
-*.pkl
-*.joblib
+# ==============================
+# AI Models / Large Data
+# ==============================
 *.h5
 *.pt
 *.pth
+*.pkl
+*.joblib
 *.sav
-*.npy
-*.npz
 
-##############################################
-# AUTO-GENERATED JSON
-##############################################
+
+# ==============================
+# Generated JSON (Project Specific)
+# ==============================
 potholes_data.json
 road_data.json
 dashboard_data.json
 
-##############################################
-# DATA & REPORTS
-##############################################
-/data/captured_images/
-data/*.csv
-data/*.xlsx
-/data/reports/*
-sensor_log.csv
-sensor_log.xlsx
 
-##############################################
-# OS / IDE FILES
-##############################################
-.vscode/
-.idea/
-Thumbs.db
-.DS_Store
+# ==============================
+# Temporary / Processing Files
+# ==============================
+image-analytics-python/processed_images/
+uploads/
+tmp/
+cache/
 
-##############################################
-# LOGS & TEMP
-##############################################
-*.log
+
+# ==============================
+# Frontend / Node.js
+# ==============================
+node_modules/
+dist/
+*.cache
+*.tmp
+
+
+# ==============================
+# Logs
+# ==============================
 logs/
 debug.log
 nohup.out
-tmp/
-temp/
-cache/
-*.tmp
+
+
+# ==============================
+# OS / IDE
+# ==============================
+*.swp
+*.swo
+Thumbs.db
+.DS_Store
+.vscode/
 *.bak
-*.orig
 
-##############################################
-# SCRIPTS / BATCH EXCLUSIONS
-##############################################
-# Allow script files everywhere
-!*.bat
-!*.ps1
-!*.sh
 
-##############################################
-# SECRETS / CONFIG
-##############################################
+# ==============================
+# Environment / Secrets
+# ==============================
 .env
-.env.*.local
-secrets.json
+.env.local
+.env.development
+.env.production
+.env.test
 credentials.json
-aws_credentials.json
+secrets.json
 
-##############################################
-# NODE / FRONTEND (future-proof)
-##############################################
-node_modules/
-dist/
+
+# ==============================
+# Email Verifier (Important)
+# ==============================
+
+# Keep real generated CSV / XLSX output files
+# Ignore only temporary Excel lock files
+~$*.xlsx
+
+# Runtime state files used by email verification scripts
+domain_resume.json
+email_resume.json
+domain_cli_resume.json
+email_cli_resume.json
+domain_gui_resume.json
+email_gui_resume.json
+
+
+# ==============================
+# General Temp Files
+# ==============================
+*.orig
+*.tmp

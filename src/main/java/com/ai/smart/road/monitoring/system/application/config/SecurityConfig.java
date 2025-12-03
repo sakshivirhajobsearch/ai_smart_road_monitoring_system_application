@@ -1,55 +1,49 @@
-// SecurityConfig.java
 package com.ai.smart.road.monitoring.system.application.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+
+import com.ai.smart.road.monitoring.system.application.service.UserDetailsServiceImpl;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
-@EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-	@Autowired
-	private UserDetailsService userDetailsService; // your UserDetailsServiceImpl bean
+	private final UserDetailsServiceImpl userDetailsService;
 
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
 	@Bean
-	public AuthenticationSuccessHandler myAuthSuccessHandler() {
-		SimpleUrlAuthenticationSuccessHandler h = new SimpleUrlAuthenticationSuccessHandler();
-		h.setDefaultTargetUrl("/"); // redirect after login; change if you have role redirects
-		h.setAlwaysUseDefaultTargetUrl(false);
-		return h;
-	}
-
-	@Bean
-	public DaoAuthenticationProvider authProvider() {
-		DaoAuthenticationProvider ap = new DaoAuthenticationProvider();
-		ap.setUserDetailsService(userDetailsService);
-		ap.setPasswordEncoder(passwordEncoder());
-		return ap;
+	public DaoAuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+		auth.setUserDetailsService(userDetailsService);
+		auth.setPasswordEncoder(passwordEncoder());
+		return auth;
 	}
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(authorize -> authorize
-				.requestMatchers("/css/**", "/js/**", "/images/**", "/api/**", "/login", "/error").permitAll()
+
+		http.csrf(csrf -> csrf.disable());
+
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/login", "/css/**", "/js/**").permitAll()
 				.requestMatchers("/admin/**").hasRole("ADMIN").requestMatchers("/collector/**").hasRole("COLLECTOR")
-				.requestMatchers("/municipal/**").hasRole("MUNICIPAL").anyRequest().authenticated())
-				.formLogin(form -> form.loginPage("/login").successHandler(myAuthSuccessHandler()).permitAll())
-				.logout(logout -> logout.permitAll()).authenticationProvider(authProvider());
+				.requestMatchers("/municipal/**").hasRole("MUNICIPAL").requestMatchers("/pwd/**").hasRole("PWD")
+				.requestMatchers("/user/**").hasRole("USER").anyRequest().authenticated());
+
+		http.formLogin(form -> form.loginPage("/login").loginProcessingUrl("/do-login")
+				.defaultSuccessUrl("/redirect-dashboard", true).failureUrl("/login?error=true").permitAll());
+
+		http.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/login?logout=true").permitAll());
 
 		return http.build();
 	}

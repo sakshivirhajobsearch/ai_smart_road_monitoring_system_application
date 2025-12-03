@@ -4,38 +4,46 @@ USE ai_smart_road_monitoring_system_application;
 -- INSERT ROLES
 -- ============================
 INSERT INTO role (name) VALUES
-('ADMIN'), ('COLLECTOR'), ('MUNICIPAL'), ('PWD'), ('USER');
+('ADMIN'),
+('COLLECTOR'),
+('MUNICIPAL'),
+('PWD'),
+('USER');
 
 -- ============================
--- INSERT USERS
+-- INSERT USERS (RAW PASSWORDS)
+-- Replace with BCrypt hashes in real use
 -- ============================
 INSERT INTO user (username, password, enabled, role_id) VALUES
-('admin',     '{noop}admin123',     TRUE, 1),
-('collector', '{noop}collector123', TRUE, 2),
-('municipal', '{noop}municipal123', TRUE, 3),
-('pwd',       '{noop}pwd123',       TRUE, 4),
-('user',      '{noop}user123',      TRUE, 5);
+('admin', 'admin123', 1, 1),
+('collector', 'collector123', 1, 2),
+('municipal', 'municipal123', 1, 3),
+('pwd', 'pwd123', 1, 4),
+('user', 'user123', 1, 5);
 
 -- ============================
--- INSERT ROADS  (Fixed keyword `condition`)
+-- INSERT SAMPLE ROAD DATA
 -- ============================
-INSERT INTO road_data (location, latitude, longitude, `condition`) VALUES
-('Main Road Sector 12',     22.0801, 82.1402, 'GOOD'),
-('Bridge Road Zone 3',      22.0951, 82.1604, 'DAMAGED'),
-('City Center Ring Road',   22.1101, 82.1755, 'MODERATE');
+INSERT INTO road_data (location, latitude, longitude, `condition`)
+VALUES
+('Road 1', 22.12345, 82.98765, 'GOOD'),
+('Road 2', 22.54321, 82.12345, 'BAD'),
+('Road 3', 22.67890, 82.54321, 'MODERATE');
 
 -- ============================
--- INSERT POTHOLES
+-- INSERT SAMPLE POTHOLE DATA
 -- ============================
-INSERT INTO pothole (road_id, latitude, longitude, severity) VALUES
-(1, 22.0805, 82.1408, 'LOW'),
-(1, 22.0810, 82.1412, 'MEDIUM'),
-(2, 22.0955, 82.1609, 'HIGH');
+INSERT INTO pothole (road_id, latitude, longitude, severity)
+VALUES
+(1, 22.12350, 82.98760, 'HIGH'),
+(1, 22.12360, 82.98770, 'LOW'),
+(2, 22.54325, 82.12350, 'MEDIUM');
 
 -- ============================
--- INSERT REPAIR ACTIVITY
+-- INSERT SAMPLE REPAIR DATA
 -- ============================
-INSERT INTO repair_activity (pothole_id, status, repaired_by) VALUES
-(1, 'PENDING',      'Collector Team'),
-(2, 'IN_PROGRESS',  'Municipal Team'),
-(3, 'COMPLETED',    'PWD Department');
+INSERT INTO repair_activity (pothole_id, status, repaired_by)
+VALUES
+(1, 'REPAIRED', 'PWD Team A'),
+(2, 'PENDING', 'PWD Team C'),
+(3, 'IN_PROGRESS', 'PWD Team B');

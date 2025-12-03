@@ -11,7 +11,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "users") // safer than 'user'
+@Table(name = "user")
 public class User {
 
 	@Id
@@ -22,28 +22,24 @@ public class User {
 	private String username;
 
 	@Column(nullable = false)
-	private String password; // BCrypt hash
+	private String password;
 
-	@Column(nullable = false)
 	private boolean enabled = true;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "role_id", nullable = false)
-	private Role role; // ADMIN, MUNICIPAL, PWD, USER, etc.
+	private Role role;
 
 	public User() {
 	}
 
-	public User(String username, String password, boolean enabled, Role role) {
-		this.username = username;
-		this.password = password;
-		this.enabled = enabled;
-		this.role = role;
-	}
-
-	// Getters + Setters
+	// getters & setters
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getUsername() {

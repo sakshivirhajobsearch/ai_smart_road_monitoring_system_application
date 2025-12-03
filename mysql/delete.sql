@@ -1,21 +1,14 @@
-use ai_smart_road_monitoring_system_application;
+USE ai_smart_road_monitoring_system_application;
 
--- ============================
--- DELETE USERS
--- ============================
+-- DELETE A USER
 DELETE FROM user WHERE username = 'user';
 
--- ============================
--- DELETE POTHOLE
--- ============================
+-- DELETE A POTHOLE
 DELETE FROM pothole WHERE id = 2;
 
--- ============================
--- DELETE ROAD RECORD
--- ============================
-DELETE FROM road_data WHERE id = 3;
+-- DELETE ROAD (CASCADE POTHOLES FIRST)
+DELETE FROM pothole WHERE road_id = 1;
+DELETE FROM road_data WHERE id = 1;
 
--- ============================
--- DELETE REPAIR ACTIVITY
--- ============================
+-- DELETE REPAIR LOG
 DELETE FROM repair_activity WHERE id = 1;

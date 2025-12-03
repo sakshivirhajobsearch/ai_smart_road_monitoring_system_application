@@ -13,10 +13,10 @@ public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@Column(nullable = false, unique = true)
-	private String name; // ADMIN, USER, PWD, COLLECTOR, MUNICIPAL
+	private String name; // ADMIN, COLLECTOR, MUNICIPAL, PWD, USER
 
 	public Role() {
 	}
@@ -25,9 +25,13 @@ public class Role {
 		this.name = name;
 	}
 
-	// Getters + Setters
-	public Long getId() {
+	// getters/setters
+	public Integer getId() {
 		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getName() {
