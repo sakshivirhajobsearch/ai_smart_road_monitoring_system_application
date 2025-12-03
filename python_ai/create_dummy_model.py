@@ -1,20 +1,19 @@
-import joblib
+# python_ai/create_dummy_model.py
 import os
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.dummy import DummyClassifier
+import joblib
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_DIR = os.path.join(BASE_DIR, "models")
-os.makedirs(MODEL_DIR, exist_ok=True)
+BASE_DIR = os.path.dirname(__file__)  # python_ai/
+MODELS_DIR = os.path.join(BASE_DIR, "models")
+os.makedirs(MODELS_DIR, exist_ok=True)
 
-model_path_pkl = os.path.join(MODEL_DIR, "pothole_model.pkl")
-model_path_joblib = os.path.join(MODEL_DIR, "pothole_model.joblib")
+clf = DummyClassifier(strategy="most_frequent")
+# train a dummy on trivial features:
+X = [[0],[1],[0],[1]]
+y = [0,1,0,1]
+clf.fit(X,y)
 
-# Dummy model
-clf = RandomForestClassifier()
-# Fit on dummy data
-clf.fit([[0,1],[1,0],[1,1],[0,0]], [0,1,1,0])
+joblib.dump(clf, os.path.join(MODELS_DIR, "pothole_model.joblib"))
+joblib.dump(clf, os.path.join(MODELS_DIR, "pothole_model.pkl"))
 
-joblib.dump(clf, model_path_pkl)
-joblib.dump(clf, model_path_joblib)
-
-print(f"Dummy models saved:\n{model_path_pkl}\n{model_path_joblib}")
+print("Dummy pothole model saved at", MODELS_DIR)
