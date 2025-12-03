@@ -1,29 +1,41 @@
 USE ai_smart_road_monitoring_system_application;
 
--- ROLES
+-- ============================
+-- INSERT ROLES
+-- ============================
 INSERT INTO role (name) VALUES
-('ADMIN'), ('USER'), ('PWD'), ('COLLECTOR'), ('MUNICIPAL');
+('ADMIN'), ('COLLECTOR'), ('MUNICIPAL'), ('PWD'), ('USER');
 
--- USERS (BCrypt password = admin123)
+-- ============================
+-- INSERT USERS
+-- ============================
 INSERT INTO user (username, password, enabled, role_id) VALUES
-('admin',     '$2a$10$yZ8gQxqyR6mX1mBHSrLkeu6./zRHCqBzuxFJoPfU4rAqt1VTo95x2', TRUE, 1),
-('user1',     '$2a$10$yZ8gQxqyR6mX1mBHSrLkeu6./zRHCqBzuxFJoPfU4rAqt1VTo95x2', TRUE, 2),
-('pwd_user',  '$2a$10$yZ8gQxqyR6mX1mBHSrLkeu6./zRHCqBzuxFJoPfU4rAqt1VTo95x2', TRUE, 3),
-('collector', '$2a$10$yZ8gQxqyR6mX1mBHSrLkeu6./zRHCqBzuxFJoPfU4rAqt1VTo95x2', TRUE, 4),
-('municipal', '$2a$10$yZ8gQxqyR6mX1mBHSrLkeu6./zRHCqBzuxFJoPfU4rAqt1VTo95x2', TRUE, 5);
+('admin',     '{noop}admin123',     TRUE, 1),
+('collector', '{noop}collector123', TRUE, 2),
+('municipal', '{noop}municipal123', TRUE, 3),
+('pwd',       '{noop}pwd123',       TRUE, 4),
+('user',      '{noop}user123',      TRUE, 5);
 
--- POTHOLE
-INSERT INTO pothole (latitude, longitude, severity, image_path, detected_at, status)
-VALUES (22.092, 82.150, 'HIGH', 'images/p1.jpg', NOW(), 'DETECTED');
+-- ============================
+-- INSERT ROADS  (Fixed keyword `condition`)
+-- ============================
+INSERT INTO road_data (location, latitude, longitude, `condition`) VALUES
+('Main Road Sector 12',     22.0801, 82.1402, 'GOOD'),
+('Bridge Road Zone 3',      22.0951, 82.1604, 'DAMAGED'),
+('City Center Ring Road',   22.1101, 82.1755, 'MODERATE');
 
--- REPAIR ACTIVITY
-INSERT INTO repair_activity (pothole_id, repair_status, repaired_at, remarks)
-VALUES (1, 'PENDING', NULL, 'Inspection needed');
+-- ============================
+-- INSERT POTHOLES
+-- ============================
+INSERT INTO pothole (road_id, latitude, longitude, severity) VALUES
+(1, 22.0805, 82.1408, 'LOW'),
+(1, 22.0810, 82.1412, 'MEDIUM'),
+(2, 22.0955, 82.1609, 'HIGH');
 
--- ROAD DATA
-INSERT INTO road_data (location, sensor_file, condition, analyzed_at)
-VALUES ('Bilaspur', 'sensor/s1.csv', 'GOOD', NOW());
-
--- ACTIVITY LOG
-INSERT INTO activity_log (action_type, description)
-VALUES ('LOGIN', 'Admin logged in');
+-- ============================
+-- INSERT REPAIR ACTIVITY
+-- ============================
+INSERT INTO repair_activity (pothole_id, status, repaired_by) VALUES
+(1, 'PENDING',      'Collector Team'),
+(2, 'IN_PROGRESS',  'Municipal Team'),
+(3, 'COMPLETED',    'PWD Department');

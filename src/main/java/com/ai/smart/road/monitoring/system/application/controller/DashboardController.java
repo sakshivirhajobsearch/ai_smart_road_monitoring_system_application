@@ -1,33 +1,38 @@
 package com.ai.smart.road.monitoring.system.application.controller;
 
+import java.io.File;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.ai.smart.road.monitoring.system.application.gui.DataVisualizer;
+
+/**
+ * Spring MVC Dashboard controller used by web templates in /templates
+ */
 @Controller
 public class DashboardController {
 
-	@GetMapping("/admin/dashboard")
-	public String adminDashboard() {
-		return "admin-dashboard";
-	}
+	private final DataVisualizer visualizer = new DataVisualizer();
 
-	@GetMapping("/collector/dashboard")
-	public String collectorDashboard() {
-		return "collector-dashboard";
-	}
+	@GetMapping({ "/", "/dashboard" })
+	public String dashboard(Model model) {
+		File roadFile = new File("road_data.json");
+		File potholeFile = new File("potholes_data.json");
 
-	@GetMapping("/municipal/dashboard")
-	public String municipalDashboard() {
-		return "municipal-dashboard";
-	}
+		Map<String, Object> summary = visualizer.loadAndSummarize(roadFile, potholeFile);
 
-	@GetMapping("/pwd/dashboard")
-	public String pwdDashboard() {
-		return "pwd-dashboard";
-	}
+		model.addAttribute("totalRoads", summary.getOrDefault("total_roads", 0));
+		model.addAttribute("totalPotholes", summary.getOrDefault("total_potholes", 0));
+		model.addAttribute("lastUpdated", summary.getOrDefault("last_updated", ""));
 
-	@GetMapping("/user/dashboard")
-	public String userDashboard() {
-		return "dashboard"; // default user dashboard
+		// pass counts (maps) to template for rendering JS charts if needed
+		model.addAttribute("severityCounts", summary.get("severity_counts"));
+		model.addAttribute("conditionCounts", summary.get("condition_counts"));
+		model.addAttribute("dailyTrend", summary.get("daily_trend"));
+
+		return "dashboard"; // your dashboard.html
 	}
 }

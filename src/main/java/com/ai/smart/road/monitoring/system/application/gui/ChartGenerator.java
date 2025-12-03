@@ -1,67 +1,108 @@
 package com.ai.smart.road.monitoring.system.application.gui;
 
 import java.awt.Color;
-import java.util.List;
+import java.awt.Dimension;
+import java.util.Map;
+
+import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
 
+/**
+ * Creates JFreeChart panels for severity distribution, condition overview, and
+ * daily trend. - Ensures DefaultCategoryDataset is populated with default
+ * categories to avoid UnknownKeyException. - Uses null-safe retrieval patterns.
+ */
 public class ChartGenerator {
 
-	// ------------------ 1. PIE CHART: Pothole Severity ------------------
-	public static JFreeChart createSeverityChart(List<DataVisualizer.Pothole> potholes) {
+	public JPanel createPotholeSeverityChartPanel(Map<String, Integer> severityCounts) {
+		// DefaultCategoryDataset is not generic. Fill with expected categories to avoid
+		// missing keys.
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		String series = "Potholes";
 
-		DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
+		// ensure keys exist and use uppercase keys HIGH/MEDIUM/LOW
+		int high = severityCounts.getOrDefault("HIGH", 0);
+		int med = severityCounts.getOrDefault("MEDIUM", 0);
+		int low = severityCounts.getOrDefault("LOW", 0);
 
-		long high = potholes.stream().filter(p -> "HIGH".equalsIgnoreCase(p.severity)).count();
-		long medium = potholes.stream().filter(p -> "MEDIUM".equalsIgnoreCase(p.severity)).count();
-		long low = potholes.stream().filter(p -> "LOW".equalsIgnoreCase(p.severity)).count();
+		dataset.addValue(high, series, "High");
+		dataset.addValue(med, series, "Medium");
+		dataset.addValue(low, series, "Low");
 
-		dataset.setValue("High Severity", high);
-		dataset.setValue("Medium Severity", medium);
-		dataset.setValue("Low Severity", low);
+		JFreeChart chart = ChartFactory.createBarChart("Pothole Severity Distribution", "Severity", "Count", dataset,
+				PlotOrientation.VERTICAL, true, false, false);
 
-		JFreeChart chart = ChartFactory.createPieChart("Pothole Severity Distribution", dataset, true, true, false);
+		// styling similar to previous app (keep look)
+		CategoryPlot plot = chart.getCategoryPlot();
+		BarRenderer renderer = (BarRenderer) plot.getRenderer();
+		renderer.setDrawBarOutline(false);
+		plot.setBackgroundPaint(Color.LIGHT_GRAY);
 
-		chart.getPlot().setBackgroundPaint(Color.LIGHT_GRAY);
-		return chart;
+		ChartPanel panel = new ChartPanel(chart);
+		panel.setPreferredSize(new Dimension(360, 420));
+		return panel;
 	}
 
-	// ------------------ 2. BAR CHART: Road Conditions ------------------
-	public static JFreeChart createRoadConditionChart(List<DataVisualizer.Road> roads) {
-
+	public JPanel createRoadConditionChartPanel(Map<String, Integer> conditionCounts) {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		String series = "Roads";
 
-		long good = roads.stream().filter(r -> "GOOD".equalsIgnoreCase(r.condition)).count();
-		long moderate = roads.stream().filter(r -> "MODERATE".equalsIgnoreCase(r.condition)).count();
-		long bad = roads.stream().filter(r -> "BAD".equalsIgnoreCase(r.condition)).count();
+		// normalize and ensure GOOD, MODERATE, BAD exist
+		int good = conditionCounts.getOrDefault("GOOD", 0);
+		int moderate = conditionCounts.getOrDefault("MODERATE", 0);
+		int bad = conditionCounts.getOrDefault("BAD", 0);
 
-		dataset.addValue(good, "Roads", "Good");
-		dataset.addValue(moderate, "Roads", "Moderate");
-		dataset.addValue(bad, "Roads", "Bad");
+		dataset.addValue(good, series, "Good");
+		dataset.addValue(moderate, series, "Moderate");
+		dataset.addValue(bad, series, "Bad");
 
-		JFreeChart chart = ChartFactory.createBarChart("Road Condition Overview", "Condition", "Count", dataset);
+		JFreeChart chart = ChartFactory.createBarChart("Road Condition Overview", "Condition", "Count", dataset,
+				PlotOrientation.VERTICAL, true, false, false);
 
-		chart.getPlot().setBackgroundPaint(Color.LIGHT_GRAY);
-		return chart;
+		CategoryPlot plot = chart.getCategoryPlot();
+		plot.setBackgroundPaint(Color.LIGHT_GRAY);
+		ChartPanel panel = new ChartPanel(chart);
+		panel.setPreferredSize(new Dimension(360, 420));
+		return panel;
 	}
 
-	// ------------------ 3. LINE CHART: Daily Detection Trend ------------------
-	public static JFreeChart createPotholeTrendChart() {
-
+	public JPanel createDetectionTrendChartPanel(Map<String, Integer> dailyTrend) {
+		// line chart for days Mon..Sun
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		String series = "Potholes";
 
-		dataset.addValue(2, "Potholes", "Mon");
-		dataset.addValue(3, "Potholes", "Tue");
-		dataset.addValue(1, "Potholes", "Wed");
-		dataset.addValue(4, "Potholes", "Thu");
-		dataset.addValue(5, "Potholes", "Fri");
+		// ensure we add Mon..Sun in this order
+		String[] days = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
+		for (String d : days) {
+			int v = dailyTrend.getOrDefault(d, 0);
+			dataset.addValue(v, series, d);
+		}
 
-		JFreeChart chart = ChartFactory.createLineChart("Daily Detection Trend", "Day", "Potholes", dataset);
+		JFreeChart chart = ChartFactory.createLineChart("Daily Detection Trend", "Day", "Potholes", dataset,
+				PlotOrientation.VERTICAL, true, false, false);
 
-		chart.getPlot().setBackgroundPaint(Color.LIGHT_GRAY);
-		return chart;
+		CategoryPlot plot = chart.getCategoryPlot();
+		plot.setBackgroundPaint(Color.LIGHT_GRAY);
+
+		NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+		rangeAxis.setAutoRangeIncludesZero(true);
+
+		// renderer to show lines + shapes consistently
+		LineAndShapeRenderer renderer = new LineAndShapeRenderer();
+		renderer.setDefaultShapesVisible(true);
+		plot.setRenderer(renderer);
+
+		ChartPanel panel = new ChartPanel(chart);
+		panel.setPreferredSize(new Dimension(360, 420));
+		return panel;
 	}
 }

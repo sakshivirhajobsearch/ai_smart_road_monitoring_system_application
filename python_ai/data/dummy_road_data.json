@@ -1,0 +1,352 @@
+[
+  {
+    "id": 1,
+    "location": "Road-1",
+    "condition": "BAD",
+    "sensor_file": "sensor/s1.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 2,
+    "location": "Road-2",
+    "condition": "MODERATE",
+    "sensor_file": "sensor/s2.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 3,
+    "location": "Road-3",
+    "condition": "MODERATE",
+    "sensor_file": "sensor/s3.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 4,
+    "location": "Road-4",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s4.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 5,
+    "location": "Road-5",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s5.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 6,
+    "location": "Road-6",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s6.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 7,
+    "location": "Road-7",
+    "condition": "MODERATE",
+    "sensor_file": "sensor/s7.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 8,
+    "location": "Road-8",
+    "condition": "BAD",
+    "sensor_file": "sensor/s8.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 9,
+    "location": "Road-9",
+    "condition": "BAD",
+    "sensor_file": "sensor/s9.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 10,
+    "location": "Road-10",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s10.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 11,
+    "location": "Road-11",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s11.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 12,
+    "location": "Road-12",
+    "condition": "MODERATE",
+    "sensor_file": "sensor/s12.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 13,
+    "location": "Road-13",
+    "condition": "BAD",
+    "sensor_file": "sensor/s13.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 14,
+    "location": "Road-14",
+    "condition": "MODERATE",
+    "sensor_file": "sensor/s14.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 15,
+    "location": "Road-15",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s15.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 16,
+    "location": "Road-16",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s16.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 17,
+    "location": "Road-17",
+    "condition": "BAD",
+    "sensor_file": "sensor/s17.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 18,
+    "location": "Road-18",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s18.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 19,
+    "location": "Road-19",
+    "condition": "BAD",
+    "sensor_file": "sensor/s19.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 20,
+    "location": "Road-20",
+    "condition": "BAD",
+    "sensor_file": "sensor/s20.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 21,
+    "location": "Road-21",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s21.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 22,
+    "location": "Road-22",
+    "condition": "MODERATE",
+    "sensor_file": "sensor/s22.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 23,
+    "location": "Road-23",
+    "condition": "BAD",
+    "sensor_file": "sensor/s23.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 24,
+    "location": "Road-24",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s24.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 25,
+    "location": "Road-25",
+    "condition": "BAD",
+    "sensor_file": "sensor/s25.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 26,
+    "location": "Road-26",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s26.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 27,
+    "location": "Road-27",
+    "condition": "BAD",
+    "sensor_file": "sensor/s27.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 28,
+    "location": "Road-28",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s28.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 29,
+    "location": "Road-29",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s29.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 30,
+    "location": "Road-30",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s30.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 31,
+    "location": "Road-31",
+    "condition": "MODERATE",
+    "sensor_file": "sensor/s31.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 32,
+    "location": "Road-32",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s32.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 33,
+    "location": "Road-33",
+    "condition": "BAD",
+    "sensor_file": "sensor/s33.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 34,
+    "location": "Road-34",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s34.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 35,
+    "location": "Road-35",
+    "condition": "BAD",
+    "sensor_file": "sensor/s35.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 36,
+    "location": "Road-36",
+    "condition": "BAD",
+    "sensor_file": "sensor/s36.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 37,
+    "location": "Road-37",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s37.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 38,
+    "location": "Road-38",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s38.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 39,
+    "location": "Road-39",
+    "condition": "MODERATE",
+    "sensor_file": "sensor/s39.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 40,
+    "location": "Road-40",
+    "condition": "MODERATE",
+    "sensor_file": "sensor/s40.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 41,
+    "location": "Road-41",
+    "condition": "MODERATE",
+    "sensor_file": "sensor/s41.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 42,
+    "location": "Road-42",
+    "condition": "MODERATE",
+    "sensor_file": "sensor/s42.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 43,
+    "location": "Road-43",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s43.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 44,
+    "location": "Road-44",
+    "condition": "MODERATE",
+    "sensor_file": "sensor/s44.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 45,
+    "location": "Road-45",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s45.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 46,
+    "location": "Road-46",
+    "condition": "BAD",
+    "sensor_file": "sensor/s46.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 47,
+    "location": "Road-47",
+    "condition": "GOOD",
+    "sensor_file": "sensor/s47.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 48,
+    "location": "Road-48",
+    "condition": "BAD",
+    "sensor_file": "sensor/s48.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 49,
+    "location": "Road-49",
+    "condition": "BAD",
+    "sensor_file": "sensor/s49.csv",
+    "analyzed_at": null
+  },
+  {
+    "id": 50,
+    "location": "Road-50",
+    "condition": "MODERATE",
+    "sensor_file": "sensor/s50.csv",
+    "analyzed_at": null
+  }
+]

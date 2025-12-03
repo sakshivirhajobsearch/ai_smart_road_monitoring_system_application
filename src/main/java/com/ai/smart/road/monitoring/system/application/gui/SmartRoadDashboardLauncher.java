@@ -1,19 +1,15 @@
 package com.ai.smart.road.monitoring.system.application.gui;
 
-import java.util.List;
-
 import javax.swing.SwingUtilities;
 
+/**
+ * Launcher for the Swing SmartRoadDashboard.
+ */
 public class SmartRoadDashboardLauncher {
-	
 	public static void main(String[] args) {
-
-		List<DataVisualizer.Road> roads = DataVisualizer.loadRoads("road_data.json");
-
-		List<DataVisualizer.Pothole> potholes = DataVisualizer.loadPotholes("potholes_data.json");
-
+		// Launch UI on the Event Dispatch Thread
 		SwingUtilities.invokeLater(() -> {
-			SmartRoadDashboard dashboard = new SmartRoadDashboard(roads, potholes);
+			SmartRoadDashboard dashboard = new SmartRoadDashboard();
 			dashboard.setVisible(true);
 		});
 	}

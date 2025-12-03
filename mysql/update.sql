@@ -1,28 +1,27 @@
-USE ai_smart_road_monitoring_system_application;
+use ai_smart_road_monitoring_system_application;
 
--- Update user password
-UPDATE user 
-SET password = '$2a$10$yZ8gQxqyR6mX1mBHSrLkeu6./zRHCqBzuxFJoPfU4rAqt1VTo95x2'
-WHERE username = 'admin';
+-- ============================
+-- UPDATE USER PASSWORD
+-- ============================
+UPDATE user SET password = '{noop}newpassword123' WHERE username = 'admin';
 
--- Update pothole status
-UPDATE pothole
-SET status = 'IN_PROGRESS'
-WHERE id = 1;
-
--- Update repair activity
-UPDATE repair_activity
-SET repair_status = 'COMPLETED',
-    repaired_at = NOW(),
-    remarks = 'Repaired successfully'
-WHERE id = 1;
-
--- Update road data
+-- ============================
+-- UPDATE ROAD CONDITION
+-- ============================
 UPDATE road_data
-SET condition = 'DAMAGED'
-WHERE id = 1;
+SET condition = 'NEEDS_INSPECTION'
+WHERE id = 2;
 
--- Update activity log description
-UPDATE activity_log
-SET description = 'System updated by admin'
-WHERE id = 1;
+-- ============================
+-- UPDATE POTHOLE SEVERITY
+-- ============================
+UPDATE pothole
+SET severity = 'CRITICAL'
+WHERE id = 3;
+
+-- ============================
+-- UPDATE REPAIR STATUS
+-- ============================
+UPDATE repair_activity
+SET status = 'COMPLETED', updated_at = CURRENT_TIMESTAMP
+WHERE id = 2;

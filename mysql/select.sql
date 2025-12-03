@@ -1,33 +1,27 @@
-USE ai_smart_road_monitoring_system_application;
+use ai_smart_road_monitoring_system_application;
 
--- Get all users with roles
-SELECT u.id, u.username, u.enabled, r.name AS role
-FROM user u
-LEFT JOIN role r ON u.role_id = r.id;
+-- ============================
+-- SELECT ALL TABLES
+-- ============================
 
--- Get potholes
-SELECT * FROM pothole;
+SELECT * FROM role;
+SELECT * FROM user;
 
--- Get repair activities with pothole info
-SELECT 
-    ra.id,
-    ra.repair_status,
-    ra.repaired_at,
-    ra.remarks,
-    p.latitude,
-    p.longitude,
-    p.status AS pothole_status
-FROM repair_activity ra
-JOIN pothole p ON ra.pothole_id = p.id;
-
--- Get road analysis data
 SELECT * FROM road_data;
+SELECT * FROM pothole;
+SELECT * FROM repair_activity;
 
--- Get activity logs (latest first)
-SELECT * FROM activity_log ORDER BY created_at DESC;
+-- ============================
+-- JOINS FOR DASHBOARD
+-- ============================
 
--- Dashboard statistics
-SELECT 
-    (SELECT COUNT(*) FROM pothole) AS total_potholes,
-    (SELECT COUNT(*) FROM repair_activity WHERE repair_status = 'COMPLETED') AS total_repairs,
-    (SELECT COUNT(*) FROM user) AS total_users;
+-- Potholes with road info
+SELECT p.id, r.location, p.latitude, p.longitude, p.severity, p.detected_at
+FROM pothole p
+JOIN road_data r ON p.road_id = r.id;
+
+-- Repair Activity with pothole mapping
+SELECT ra.id, ra.status, ra.repaired_by, p.severity, r.location
+FROM repair_activity ra
+JOIN pothole p ON ra.pothole_id = p.id
+JOIN road_data r ON p.road_id = r.id;
