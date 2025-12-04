@@ -1,0 +1,7 @@
+{
+    "dashboard": {
+        "total_potholes": 120,
+        "repaired": 35,
+        "pending": 85
+    }
+}

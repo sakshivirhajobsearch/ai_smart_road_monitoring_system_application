@@ -1,0 +1,184 @@
+{
+    "potholes": [
+        {
+            "id": 0,
+            "lat": 22.0,
+            "lon": 82.0,
+            "severity": "LOW"
+        },
+        {
+            "id": 1,
+            "lat": 22.01,
+            "lon": 82.01,
+            "severity": "LOW"
+        },
+        {
+            "id": 2,
+            "lat": 22.02,
+            "lon": 82.02,
+            "severity": "LOW"
+        },
+        {
+            "id": 3,
+            "lat": 22.03,
+            "lon": 82.03,
+            "severity": "MEDIUM"
+        },
+        {
+            "id": 4,
+            "lat": 22.04,
+            "lon": 82.04,
+            "severity": "MEDIUM"
+        },
+        {
+            "id": 5,
+            "lat": 22.05,
+            "lon": 82.05,
+            "severity": "LOW"
+        },
+        {
+            "id": 6,
+            "lat": 22.06,
+            "lon": 82.06,
+            "severity": "HIGH"
+        },
+        {
+            "id": 7,
+            "lat": 22.07,
+            "lon": 82.07,
+            "severity": "HIGH"
+        },
+        {
+            "id": 8,
+            "lat": 22.08,
+            "lon": 82.08,
+            "severity": "HIGH"
+        },
+        {
+            "id": 9,
+            "lat": 22.09,
+            "lon": 82.09,
+            "severity": "MEDIUM"
+        },
+        {
+            "id": 10,
+            "lat": 22.1,
+            "lon": 82.1,
+            "severity": "HIGH"
+        },
+        {
+            "id": 11,
+            "lat": 22.11,
+            "lon": 82.11,
+            "severity": "HIGH"
+        },
+        {
+            "id": 12,
+            "lat": 22.12,
+            "lon": 82.12,
+            "severity": "HIGH"
+        },
+        {
+            "id": 13,
+            "lat": 22.13,
+            "lon": 82.13,
+            "severity": "MEDIUM"
+        },
+        {
+            "id": 14,
+            "lat": 22.14,
+            "lon": 82.14,
+            "severity": "MEDIUM"
+        },
+        {
+            "id": 15,
+            "lat": 22.15,
+            "lon": 82.15,
+            "severity": "MEDIUM"
+        },
+        {
+            "id": 16,
+            "lat": 22.16,
+            "lon": 82.16,
+            "severity": "HIGH"
+        },
+        {
+            "id": 17,
+            "lat": 22.17,
+            "lon": 82.17,
+            "severity": "HIGH"
+        },
+        {
+            "id": 18,
+            "lat": 22.18,
+            "lon": 82.18,
+            "severity": "MEDIUM"
+        },
+        {
+            "id": 19,
+            "lat": 22.19,
+            "lon": 82.19,
+            "severity": "MEDIUM"
+        },
+        {
+            "id": 20,
+            "lat": 22.2,
+            "lon": 82.2,
+            "severity": "HIGH"
+        },
+        {
+            "id": 21,
+            "lat": 22.21,
+            "lon": 82.21,
+            "severity": "LOW"
+        },
+        {
+            "id": 22,
+            "lat": 22.22,
+            "lon": 82.22,
+            "severity": "LOW"
+        },
+        {
+            "id": 23,
+            "lat": 22.23,
+            "lon": 82.23,
+            "severity": "LOW"
+        },
+        {
+            "id": 24,
+            "lat": 22.24,
+            "lon": 82.24,
+            "severity": "HIGH"
+        },
+        {
+            "id": 25,
+            "lat": 22.25,
+            "lon": 82.25,
+            "severity": "LOW"
+        },
+        {
+            "id": 26,
+            "lat": 22.26,
+            "lon": 82.26,
+            "severity": "MEDIUM"
+        },
+        {
+            "id": 27,
+            "lat": 22.27,
+            "lon": 82.27,
+            "severity": "LOW"
+        },
+        {
+            "id": 28,
+            "lat": 22.28,
+            "lon": 82.28,
+            "severity": "LOW"
+        },
+        {
+            "id": 29,
+            "lat": 22.29,
+            "lon": 82.29,
+            "severity": "MEDIUM"
+        }
+    ]
+}
